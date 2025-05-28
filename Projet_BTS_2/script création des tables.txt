@@ -1,0 +1,79 @@
+--
+-- Structure de la table `creneau`
+--
+
+CREATE TABLE `creneau` (
+  `id_creneau` int(11) NOT NULL,
+  `datte` date DEFAULT NULL,
+  `heure` int(11) DEFAULT NULL,
+  `id_sal` int(11) DEFAULT NULL,
+  `id_us` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Structure de la table `salle`
+--
+
+CREATE TABLE `salle` (
+  `id_salle` int(11) NOT NULL,
+  `nom_salle` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Structure de la table `user`
+--
+
+CREATE TABLE `user` (
+  `id_user` int(11) NOT NULL,
+  `login` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `mdp` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `role` int(11) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Index pour la table `creneau`
+--
+ALTER TABLE `creneau`
+  ADD PRIMARY KEY (`id_creneau`),
+  ADD KEY `id_sal` (`id_sal`),
+  ADD KEY `id_us` (`id_us`);
+
+--
+-- Index pour la table `salle`
+--
+ALTER TABLE `salle`
+  ADD PRIMARY KEY (`id_salle`);
+
+--
+-- Index pour la table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id_user`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `creneau`
+--
+ALTER TABLE `creneau`
+  MODIFY `id_creneau` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT pour la table `salle`
+--
+ALTER TABLE `salle`
+  MODIFY `id_salle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `creneau`
+--
+ALTER TABLE `creneau`
+  ADD CONSTRAINT `creneau_ibfk_1` FOREIGN KEY (`id_sal`) REFERENCES `salle` (`id_salle`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `creneau_ibfk_2` FOREIGN KEY (`id_us`) REFERENCES `user` (`id_user`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+COMMIT;
